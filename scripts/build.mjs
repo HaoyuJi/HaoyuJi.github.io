@@ -11,7 +11,8 @@ for (const name of ['profile-data', 'papers-data', 'figure-data']) {
 }
 const { PROFILE_DATA: profile, PAPERS: papers, PAPER_FIGURES: figures } = window;
 const siteURL = 'https://haoyuji.github.io/';
-const selected = ['lady', 'spectral-scalpel', 'lasau'];
+const interactionImage = 'assets/images/interaction-sequence.webp';
+const selected = ['lady', 'spectral-scalpel', 'lasau', 'relational-graph', 'snippet-transformer', 'physflownet', 'topology-motion'];
 const html = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const zh = (lang, cn, en) => lang === 'zh' ? cn : en;
 const localized = (data, lang, key) => data[key + (lang === 'zh' ? 'Zh' : 'En')];
@@ -21,14 +22,22 @@ const rel = (from, to) => path.posix.relative(path.posix.dirname(from), to) || p
 const homePath = lang => rootDir(lang) + 'index.html';
 const paperPath = (lang, id) => rootDir(lang) + 'papers/' + id + '/index.html';
 const pubOrder = [...papers].sort((a,b) => b.year - a.year);
-const roleName = (role, lang) => ({
-  first: zh(lang, '第一作者', 'First author'), 'co-first': zh(lang, '共同第一作者', 'Co-first author'),
-  corresponding: zh(lang, '通讯作者', 'Corresponding author'), coauthor: zh(lang, '合著', 'Co-author')
-})[role] || '';
 function otherLanguage(lang) { return lang === 'en' ? 'zh' : 'en'; }
+const isProfileAuthor = name => /^(Haoyu Ji|Ji Haoyu|Ji H\.?|H\. Ji)$/i.test(name);
+const authorList = p => (Array.isArray(p.authors) ? p.authors : p.authors.split(',')).map(name => name.trim());
 function authors(p) {
-  return html(Array.isArray(p.authors) ? p.authors.join(', ') : p.authors)
-    .replace(/\b(Haoyu Ji|Ji Haoyu|Ji H\.?|H\. Ji)\b/gi, '<strong>$&</strong>');
+  return authorList(p).map(name => isProfileAuthor(name) ? '<strong>'+html(name)+'</strong>' : html(name)).join(', ');
+}
+function authorship(p, lang) {
+  const position = authorList(p).findIndex(isProfileAuthor) + 1;
+  if (!position) throw new Error('Missing profile author in ' + p.id);
+  const cn = ['一', '二', '三', '四'][position - 1] || String(position);
+  const en = ['First', 'Second', 'Third', 'Fourth'][position - 1];
+  const rank = zh(lang, '第'+cn+'作者', en ? en+' author' : 'Author '+position);
+  if (p.role === 'co-first') {
+    return zh(lang, '共同第一作者（署名第'+cn+'）', 'Co-first author (listed '+(en ? en.toLowerCase() : '#'+position)+')');
+  }
+  return p.role === 'corresponding' ? rank + zh(lang, ' · 通讯作者',' · Corresponding author') : rank;
 }
 function ext(url, label, cls = '', symbol = '') {
   return '<a class="' + cls + '" href="' + html(url) + '" target="_blank" rel="noopener noreferrer">' + (symbol && icon(symbol)) + html(label) + '</a>';
@@ -49,9 +58,13 @@ function hero(lang, file) {
   return `<section class="hero" id="about"><div class="container hero-grid">
     <div class="intro"><div class="eyebrow"><span></span>${html(profile.role[lang])}</div>
     <div class="identity"><img class="portrait" width="78" height="92" src="${rel(file,'assets/images/haoyu-ji.webp')}" alt="${nameOf(lang)}"><div><h1>${nameOf(lang)}${lang === 'zh' ? '<i lang="en">Haoyu Ji</i>' : ''}</h1><div class="institution">${icon('cap')}<span>${html(affiliation)}</span></div></div></div>
-    <p class="intro-text">${blurb}</p>
+    <p class="intro-text">${html(blurb)}</p>
     <div class="profile-links">${ext(profile.scholar.replace('hl=en','hl='+ (lang==='zh'?'zh-CN':'en')), 'Google Scholar', 'button primary','cap')}${ext(profile.orcid,'ORCID','button','orcid')}<a class="button" href="mailto:${html(profile.email)}">${icon('mail')}${zh(lang,'电子邮箱','Email')}</a></div></div>
-    <figure class="hero-figure"><img alt="${zh(lang,'四个连续步态的三维人体网格示意','Illustration of four successive walking poses represented as 3D human meshes')}" src="${rel(file,'assets/images/motion-study.webp')}" width="1320" height="635"><figcaption>${icon('focus')}${zh(lang,'人体运动分析','Human motion analysis')}</figcaption><div aria-hidden="true" class="frame-labels"><span>t₀</span><span>t₁</span><span>t₂</span><span>t₃</span></div></figure>
+    <figure class="hero-figure"><img src="${rel(file,interactionImage)}" width="1672" height="941" alt="${zh(lang,'成人和儿童隔桌玩泡泡，上方骨架序列呈现两人的姿态变化。','An adult and a child play with bubbles across a table. Skeletal poses above them show how their gestures change over time.')}">
+      <figcaption><strong>${zh(lang,'双人互动的动作分割示意','Segmenting a two-person interaction')}</strong>
+        <div class="segment-row adult-track"><span class="track-name">${zh(lang,'成人','Adult')}</span><ol><li>${zh(lang,'举起泡泡棒','Raise wand')}</li><li>${zh(lang,'吹泡泡','Blow bubbles')}</li><li>${zh(lang,'放低泡泡棒','Lower wand')}</li></ol></div>
+        <div class="segment-row child-track"><span class="track-name">${zh(lang,'儿童','Child')}</span><ol><li>${zh(lang,'注视泡泡棒','Watch the wand')}</li><li>${zh(lang,'伸手触碰','Reach out')}</li></ol></div>
+      </figcaption></figure>
     </div></section>`;
 }
 function venue(p) {
@@ -66,14 +79,14 @@ function paperCard(p,lang,file) {
   const fig = figures[p.id], href = rel(file,paperPath(lang,p.id));
   const concise = shortSummary(p, lang);
   return `<article class="paper-card"><a class="thumb" href="${href}" aria-label="${html(p.title)}" tabindex="-1"><img src="${rel(file,fig.image)}" width="640" height="354" loading="lazy" alt=""></a><div class="card-content">
-    <div class="paper-meta"><span class="venue">${html(venue(p))}</span><span class="role">${html(roleName(p.role,lang))}</span></div>
+    <div class="paper-meta"><span class="venue">${html(venue(p))}</span><span class="role">${html(authorship(p,lang))}</span></div>
     <h3 lang="en"><a href="${href}">${html(p.title)}</a></h3><p class="card-summary">${html(concise)}</p>
     <div class="card-links"><a href="${href}">${icon('book')}${zh(lang,'论文详情','Paper details')}</a></div></div></article>`;
 }
 function publicationList(lang,file) {
   return `<ol class="paper-list">${pubOrder.map(p => {
     const href=rel(file,paperPath(lang,p.id));
-    return `<li><a class="list-image" href="${href}" tabindex="-1" aria-label="${html(p.title)}"><img loading="lazy" width="160" height="90" alt="" src="${rel(file,figures[p.id].image)}"></a><div><span class="list-venue">${html(venue(p))}${p.status === 'accepted' ? ' · '+zh(lang,'已接收','Accepted') : ''}</span><h3 lang="en"><a href="${href}">${html(p.title)}</a></h3><p class="authors">${authors(p)}</p><p class="list-summary">${html(shortSummary(p,lang))}</p></div></li>`;
+    return `<li><a class="list-image" href="${href}" tabindex="-1" aria-label="${html(p.title)}"><img loading="lazy" width="160" height="90" alt="" src="${rel(file,figures[p.id].image)}"></a><div><div class="list-meta"><span class="list-venue">${html(venue(p))}${p.status === 'accepted' ? ' · '+zh(lang,'已接收','Accepted') : ''}</span><span class="role">${html(authorship(p,lang))}</span></div><h3 lang="en"><a href="${href}">${html(p.title)}</a></h3><p class="authors">${authors(p)}</p><p class="list-summary">${html(shortSummary(p,lang))}</p></div></li>`;
   }).join('')}</ol>`;
 }
 function publications(lang,file) {
@@ -107,7 +120,7 @@ function detail(p,lang,file) {
     return `<figure class="detail-figure"><a href="${src}" target="_blank" rel="noopener" aria-label="${zh(lang,'查看大图','Open full-size figure')}"><img src="${src}" alt="${html(localized(f,lang,'caption'))}"></a><figcaption>${html(localized(f,lang,'caption'))}${f.sourceUrl ? ' '+ext(f.sourceUrl,zh(lang,'图片来源','Figure source')):''}</figcaption></figure>`;
   }
   return `<article class="container paper-detail"><p class="breadcrumb"><a href="${home}#all">${zh(lang,'研究论文','Publications')}</a><span>/</span>${html(venue(p))}</p>
-    <div class="detail-heading"><div class="paper-meta"><span class="venue">${html(venue(p))}</span><span class="role">${html(roleName(p.role,lang))}</span></div>
+    <div class="detail-heading"><div class="paper-meta"><span class="venue">${html(venue(p))}</span><span class="role">${html(authorship(p,lang))}</span></div>
     <h1 lang="en">${html(p.title)}</h1><p class="detail-authors">${authors(p)}</p><p class="detail-venue">${html(p.venue)}${p.status === 'accepted' ? ' · '+zh(lang,'已接收','Accepted'):''}</p>
     <div class="resource-links">${[...resources].map(([url,label],i)=>ext(url,label,i===0?'button primary':'button','link')).join('')}<a class="button" href="#citation">${icon('cite')}${zh(lang,'引用','Cite')}</a></div></div>
     <div class="detail-body"><section><h2>${zh(lang,'研究简介','Research overview')}</h2><p>${html(localized(p,lang,'abstract'))}</p></section>${figure(fig)}</div>
@@ -121,7 +134,7 @@ function page(lang,file,body,p) {
   const description = p ? localized(p,lang,'abstract') : profile.bio[lang];
   return `<!doctype html>
 <html lang="${lang==='zh'?'zh-CN':'en'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${html(title)}</title>
-<meta name="description" content="${html(description)}"><meta name="theme-color" content="#f3f6f4"><meta property="og:title" content="${html(title)}"><meta property="og:description" content="${html(description)}"><meta property="og:image" content="${siteURL + (p ? figures[p.id].image : 'assets/images/motion-study.webp')}">
+<meta name="description" content="${html(description)}"><meta name="theme-color" content="#f3f6f4"><meta property="og:title" content="${html(title)}"><meta property="og:description" content="${html(description)}"><meta property="og:image" content="${siteURL + (p ? figures[p.id].image : interactionImage)}">
 <link rel="canonical" href="${siteURL+file.replace(/index\.html$/,'')}"><link rel="alternate" hreflang="${lang==='zh'?'en':'zh-CN'}" href="${siteURL+twin.replace(/index\.html$/,'')}">
 <link rel="icon" href="${rel(file,'assets/images/monogram.svg')}"><link rel="stylesheet" href="${rel(file,'assets/styles/site.css')}"><script defer src="${rel(file,'assets/js/site.js')}"></script>
 </head><body><a class="skip" href="#main">${zh(lang,'跳到正文','Skip to content')}</a>${topbar(lang,file,twin,!p)}<main id="main">${body}</main>

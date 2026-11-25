@@ -73,7 +73,7 @@
     entry("基于动作分割的孤独症行为分析方法研究",
       "Action segmentation for behavioral analysis in autism",
       "深圳市科技重大专项 · JCYJ20240813105137049 · 30 万元 · 在研",
-      "Shenzhen Major Science and Technology Project · JCYJ20240813105137049 · CNY 300,000 · Ongoing",
+      "Shenzhen Major Science and Technology Projects · JCYJ20240813105137049 · CNY 300,000 · Ongoing",
       "作为学生技术负责人，参与实现面向儿童孤独症筛查的行为分割方法。",
       "As the student technical lead, I help implement behavioral segmentation for childhood autism screening."),
     entry("面向家庭环境的孤独症儿童社交能力干预关键技术",
@@ -167,12 +167,12 @@
     role: bilingual("机械工程博士研究生", "PhD Student in Mechanical Engineering"),
     affiliation: bilingual("哈尔滨工业大学（深圳）", "Harbin Institute of Technology, Shenzhen"),
     bio: bilingual(
-      "我师从刘洪海教授，研究如何结合骨骼运动、语言与多模态信号，识别连续动作及其边界，并将这些方法用于人机交互和孤独症儿童的行为评估。2025 年入选中国科协青年科技人才培育工程博士生专项计划。",
-      "With Professor Honghai Liu, I study how skeletal motion, language and multimodal signals can reveal where one action ends and the next begins. I apply these methods to human–computer interaction and behavioral assessment in children with autism. In 2025, I was selected for the China Association for Science and Technology’s doctoral training program for young researchers."
+      "我师从刘洪海教授（欧洲科学院院士、IEEE Fellow），研究领域为计算机视觉、人体行为分析与时序动作分割。目前主要结合视觉信息、骨架运动与多模态信号，在连续序列中识别动作、定位各段动作的起止边界。我也关注视觉感知与行为理解中的其他问题，并将这些方法用于人机交互和孤独症儿童的行为评估。2025 年入选中国科协青年科技人才培育工程博士生专项计划。",
+      "My doctoral advisor is Professor Honghai Liu, a member of Academia Europaea and an IEEE Fellow. My research spans computer vision, human behavior analysis and temporal action segmentation. I use visual information, skeletal motion and multimodal signals to recognize actions in continuous sequences and identify where each action begins and ends. I also study broader questions in visual perception and behavior understanding, with applications in human–computer interaction and behavioral assessment in children with autism. In 2025, I was selected for the China Association for Science and Technology’s doctoral training program for young researchers."
     ),
     interests: bilingual(
-      ["时序动作分割", "人体行为分析", "人机交互"],
-      ["Temporal action segmentation", "Human behavior analysis", "Human–computer interaction"]
+      ["计算机视觉", "人体行为分析", "时序动作分割"],
+      ["Computer vision", "Human behavior analysis", "Temporal action segmentation"]
     ),
     email: "Jihaoyu1224@gmail.com",
     orcid: "https://orcid.org/0009-0007-2150-0791",
