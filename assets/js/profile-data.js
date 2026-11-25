@@ -73,7 +73,7 @@
     entry("基于动作分割的孤独症行为分析方法研究",
       "Action segmentation for behavioral analysis in autism",
       "深圳市科技重大专项 · JCYJ20240813105137049 · 30 万元 · 在研",
-      "Shenzhen Major Science and Technology Projects · JCYJ20240813105137049 · CNY 300,000 · Ongoing",
+      "Shenzhen Science and Technology Program · JCYJ20240813105137049 · CNY 300,000 · Ongoing",
       "作为学生技术负责人，参与实现面向儿童孤独症筛查的行为分割方法。",
       "As the student technical lead, I help implement behavioral segmentation for childhood autism screening."),
     entry("面向家庭环境的孤独症儿童社交能力干预关键技术",
@@ -100,7 +100,7 @@
     return entry(zh, en, year, year);
   }
   const awards = [
-    honor("优秀学生、优秀团员", "Outstanding Student and Outstanding Youth League Member", "2024–2026"),
+    honor("优秀学生、优秀团员", "Outstanding Student and Outstanding Youth League Member", "2025–2026"),
     honor("中国科协青年科技人才培育工程博士生专项计划、比亚迪奖学金、优秀团员",
       "CAST doctoral program for young researchers, BYD Scholarship and Outstanding Youth League Member", "2024–2025"),
     honor("国家奖学金、研究生特等奖学金、优秀学生、优秀团员",

@@ -60,11 +60,7 @@ function hero(lang, file) {
     <div class="identity"><img class="portrait" width="78" height="92" src="${rel(file,'assets/images/haoyu-ji.webp')}" alt="${nameOf(lang)}"><div><h1>${nameOf(lang)}${lang === 'zh' ? '<i lang="en">Haoyu Ji</i>' : ''}</h1><div class="institution">${icon('cap')}<span>${html(affiliation)}</span></div></div></div>
     <p class="intro-text">${html(blurb)}</p>
     <div class="profile-links">${ext(profile.scholar.replace('hl=en','hl='+ (lang==='zh'?'zh-CN':'en')), 'Google Scholar', 'button primary','cap')}${ext(profile.orcid,'ORCID','button','orcid')}<a class="button" href="mailto:${html(profile.email)}">${icon('mail')}${zh(lang,'电子邮箱','Email')}</a></div></div>
-    <figure class="hero-figure"><img src="${rel(file,interactionImage)}" width="1672" height="941" alt="${zh(lang,'成人和儿童隔桌玩泡泡，上方骨架序列呈现两人的姿态变化。','An adult and a child play with bubbles across a table. Skeletal poses above them show how their gestures change over time.')}">
-      <figcaption><strong>${zh(lang,'双人互动的动作分割示意','Segmenting a two-person interaction')}</strong>
-        <div class="segment-row adult-track"><span class="track-name">${zh(lang,'成人','Adult')}</span><ol><li>${zh(lang,'举起泡泡棒','Raise wand')}</li><li>${zh(lang,'吹泡泡','Blow bubbles')}</li><li>${zh(lang,'放低泡泡棒','Lower wand')}</li></ol></div>
-        <div class="segment-row child-track"><span class="track-name">${zh(lang,'儿童','Child')}</span><ol><li>${zh(lang,'注视泡泡棒','Watch the wand')}</li><li>${zh(lang,'伸手触碰','Reach out')}</li></ol></div>
-      </figcaption></figure>
+    <figure class="hero-figure"><img src="${rel(file,interactionImage)}" width="1672" height="941" alt="${zh(lang,'研究者与儿童隔桌玩泡泡。上方的骨架序列呈现两人的姿态变化，下方的色带表示不同动作在时间上的起止。','A researcher and child play with bubbles. Skeletal poses above show their changing gestures, and colored bands below indicate when actions begin and end.')}"></figure>
     </div></section>`;
 }
 function venue(p) {
