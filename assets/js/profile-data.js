@@ -177,6 +177,9 @@
     email: "Jihaoyu1224@gmail.com",
     orcid: "https://orcid.org/0009-0007-2150-0791",
     scholar: "https://scholar.google.com/citations?user=xAVM-egAAAAJ&hl=en&view_op=list_works&sortby=pubdate",
+    github: "https://github.com/HaoyuJi",
+    dblp: "https://dblp.org/pid/243/4319-1.html",
+    openreview: "https://openreview.net/profile?id=%7EHaoyu_Ji1",
     sections: [
       { id: "patents", title: bilingual("专利", "Patents"), items: patents },
       { id: "projects", title: bilingual("科研项目", "Research projects"), items: projects },

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 354" role="img" aria-label="Three successive full-body poses with the moving forearm highlighted">
+  <defs>
+    <linearGradient id="paper" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#edf5f4"/><stop offset="1" stop-color="#d6e5eb"/>
+    </linearGradient>
+    <pattern id="grid" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#9fb8bd" opacity=".48"/>
+    </pattern>
+    <g id="torso" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="0" cy="272" rx="42" ry="5" fill="#5e818a" opacity=".15"/>
+      <g fill="none" stroke="#5e7884" stroke-width="6">
+        <path d="M0 73v16m-24 9 24-9 23 9-6 69-17 6-17-6Zm24-9v84"/>
+        <path d="m-24 98-12 42 6 34m13-7-5 49-5 51-11 2m55-102 7 50 7 50 13 1"/>
+      </g>
+      <circle cx="0" cy="58" r="16" fill="#f5f8f5" stroke="#536e7b" stroke-width="5"/>
+      <g fill="#d6e5e5" stroke="#536e7b" stroke-width="3">
+        <circle cx="-24" cy="98" r="5"/><circle cx="-36" cy="140" r="5"/><circle cx="-30" cy="174" r="4"/>
+        <circle cx="-17" cy="167" r="5"/><circle cx="17" cy="167" r="5"/>
+        <circle cx="-22" cy="216" r="5"/><circle cx="24" cy="217" r="5"/>
+      </g>
+      <circle cx="23" cy="98" r="5" fill="#d6e5e5" stroke="#536e7b" stroke-width="3"/>
+    </g>
+  </defs>
+  <rect width="640" height="354" fill="url(#paper)"/>
+  <rect width="640" height="354" fill="url(#grid)"/>
+  <g fill="none" stroke="#8da5ad" opacity=".48">
+    <path d="M55 275h530m-383-238v250m218-250v250" stroke-dasharray="3 7"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(104 0)">
+      <use href="#torso"/>
+      <path d="m23 98 11 38" stroke="#5e7884" stroke-width="6"/>
+      <path d="m34 136 5 38" stroke="#178778" stroke-width="8"/>
+      <circle cx="34" cy="136" r="5" fill="#bee5d9" stroke="#178778" stroke-width="3"/>
+      <circle cx="39" cy="174" r="5" fill="#f6d89a" stroke="#986e35" stroke-width="2"/>
+    </g>
+    <g transform="translate(308 0)">
+      <use href="#torso"/>
+      <path d="m23 98 24 31" stroke="#5e7884" stroke-width="6"/>
+      <path d="m47 129 35-15" stroke="#178778" stroke-width="8"/>
+      <circle cx="47" cy="129" r="5" fill="#bee5d9" stroke="#178778" stroke-width="3"/>
+      <circle cx="82" cy="114" r="5" fill="#f6d89a" stroke="#986e35" stroke-width="2"/>
+    </g>
+    <g transform="translate(508 0)">
+      <use href="#torso"/>
+      <path d="m23 98 32 21" stroke="#5e7884" stroke-width="6"/>
+      <path d="m55 119 7-38" stroke="#178778" stroke-width="8"/>
+      <circle cx="55" cy="119" r="5" fill="#bee5d9" stroke="#178778" stroke-width="3"/>
+      <circle cx="62" cy="81" r="5" fill="#f6d89a" stroke="#986e35" stroke-width="2"/>
+    </g>
+  </g>
+  <g fill="#72929b">
+    <path d="M54 312h531v1H54z"/>
+    <circle cx="104" cy="312" r="3"/><circle cx="308" cy="312" r="3"/><circle cx="508" cy="312" r="3"/>
+  </g>
+</svg>

@@ -1,6 +1,8 @@
 const paths = {
   cap: '<path d="m2 9 10-5 10 5-10 5L2 9Zm4 2v5c3 3 9 3 12 0v-5m4-2v7"/>',
   mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+  code: '<path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-14-2 18"/>',
+  review: '<path d="M4 4h16v12H9l-5 4Zm4 5h8m-8 3h5"/>',
   orcid: '<circle cx="12" cy="12" r="9"/><path d="M8 10v6m3.3-8h1.6a4 4 0 0 1 0 8h-1.6Z"/><circle cx="8" cy="7.5" r=".45" fill="currentColor"/>',
   book: '<path d="M3 4.5c3.2-.7 6-.2 9 2 3-2.2 5.8-2.7 9-2v14c-3.4-.7-6 .1-9 2-3-1.9-5.6-2.7-9-2Zm9 2v14"/>',
   link: '<path d="m10 13 4-4m-6.5 3-1.3 1.3a3.6 3.6 0 0 0 5.1 5.1l2.9-2.9m2.3-3.5 1.3-1.3a3.6 3.6 0 0 0-5.1-5.1L9.8 8.5"/>',

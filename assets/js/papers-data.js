@@ -206,6 +206,17 @@ window.PAPERS = [
     abstractEn: "The motion of nearby targets can help predict where an occluded target is heading. GroupTrack assembles neighboring tracklets into groups and uses their movement patterns for trajectory prediction and data association."
   },
   {
+    id: "part-motion-learning",
+    title: "Language-Assisted Human Part Motion Learning for Skeleton-Based Temporal Action Segmentation",
+    authors: "Bowen Chen, Haoyu Ji, Zhiyong Wang, Benjamin Filtjens, Chunzhuo Wang, Weihong Ren, Bart Vanrumste, Honghai Liu",
+    venue: "arXiv:2410.06353", shortVenue: "arXiv",
+    year: 2024, eprint: "2410.06353", primaryClass: "cs.CV", role: "coauthor", status: "preprint", doi: "10.48550/arXiv.2410.06353",
+    url: "https://arxiv.org/abs/2410.06353",
+    links: [{ label: "PDF", url: "https://arxiv.org/pdf/2410.06353" }],
+    abstractZh: "LPL 同时学习全身运动与局部肢体运动的特征，用于逐帧识别连续骨架序列中的动作。在训练时，模型将这些特征与全身和身体部位两个层次的动作文本描述对齐，使相近动作之间的语义关系能够指导骨架特征学习。",
+    abstractEn: "LPL combines whole-body movement with the motion of individual body parts to identify actions frame by frame. During training, it aligns skeleton features with descriptions of the action at both scales. This lets the model use semantic relationships between action labels when learning to distinguish movements."
+  },
+  {
     id: "behavioral-biomarkers",
     title: "A Framework for Behavioral Biomarker Analysis via Action Segmentation in Early Autism Screening",
     authors: "Wenze Huang, Bingrui Zhou, Bowen Chen, Haoyu Ji, Zhihao Yang, Yu Gao, Xueting Liu, Jingjing Liu, Weihong Ren, Zhiyong Wang, Xiu Xu, Honghai Liu",

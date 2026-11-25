@@ -59,13 +59,25 @@ function hero(lang, file) {
     <div class="intro"><div class="eyebrow"><span></span>${html(profile.role[lang])}</div>
     <div class="identity"><img class="portrait" width="78" height="92" src="${rel(file,'assets/images/haoyu-ji.webp')}" alt="${nameOf(lang)}"><div><h1>${nameOf(lang)}${lang === 'zh' ? '<i lang="en">Haoyu Ji</i>' : ''}</h1><div class="institution">${icon('cap')}<span>${html(affiliation)}</span></div></div></div>
     <p class="intro-text">${html(blurb)}</p>
-    <div class="profile-links">${ext(profile.scholar.replace('hl=en','hl='+ (lang==='zh'?'zh-CN':'en')), 'Google Scholar', 'button primary','cap')}${ext(profile.orcid,'ORCID','button','orcid')}<a class="button" href="mailto:${html(profile.email)}">${icon('mail')}${zh(lang,'电子邮箱','Email')}</a></div></div>
+    <div class="profile-links">
+      ${ext(profile.scholar.replace('hl=en','hl='+ (lang==='zh'?'zh-CN':'en')), 'Google Scholar', 'button primary','cap')}
+      ${ext(profile.orcid,'ORCID','button','orcid')}
+      <a class="button" href="mailto:${html(profile.email)}">${icon('mail')}${zh(lang,'电子邮箱','Email')}</a>
+      ${ext(profile.github,'GitHub','button','code')}
+      ${ext(profile.dblp,'dblp','button','book')}
+      ${ext(profile.openreview,'OpenReview','button','review')}
+    </div></div>
     <figure class="hero-figure"><img src="${rel(file,interactionImage)}" width="1672" height="941" alt="${zh(lang,'研究者与儿童隔桌玩泡泡。上方的骨架序列呈现两人的姿态变化，下方的色带表示不同动作在时间上的起止。','A researcher and child play with bubbles. Skeletal poses above show their changing gestures, and colored bands below indicate when actions begin and end.')}"></figure>
     </div></section>`;
 }
 function venue(p) {
   const short = p.shortVenue || p.venue;
   return !p.year || short.includes(String(p.year)) ? short : short + ' ' + p.year;
+}
+function statusSuffix(p, lang) {
+  if (p.status === 'preprint') return ' · ' + zh(lang,'预印本','Preprint');
+  if (p.status === 'accepted') return ' · ' + zh(lang,'已接收','Accepted');
+  return '';
 }
 function shortSummary(p, lang) {
   const summary = localized(p,lang,'summary') || localized(p,lang,'abstract') || '';
@@ -82,7 +94,7 @@ function paperCard(p,lang,file) {
 function publicationList(lang,file) {
   return `<ol class="paper-list">${pubOrder.map(p => {
     const href=rel(file,paperPath(lang,p.id));
-    return `<li><a class="list-image" href="${href}" tabindex="-1" aria-label="${html(p.title)}"><img loading="lazy" width="160" height="90" alt="" src="${rel(file,figures[p.id].image)}"></a><div><div class="list-meta"><span class="list-venue">${html(venue(p))}${p.status === 'accepted' ? ' · '+zh(lang,'已接收','Accepted') : ''}</span><span class="role">${html(authorship(p,lang))}</span></div><h3 lang="en"><a href="${href}">${html(p.title)}</a></h3><p class="authors">${authors(p)}</p><p class="list-summary">${html(shortSummary(p,lang))}</p></div></li>`;
+    return `<li><a class="list-image" href="${href}" tabindex="-1" aria-label="${html(p.title)}"><img loading="lazy" width="160" height="90" alt="" src="${rel(file,figures[p.id].image)}"></a><div><div class="list-meta"><span class="list-venue">${html(venue(p))}${statusSuffix(p,lang)}</span><span class="role">${html(authorship(p,lang))}</span></div><h3 lang="en"><a href="${href}">${html(p.title)}</a></h3><p class="authors">${authors(p)}</p><p class="list-summary">${html(shortSummary(p,lang))}</p></div></li>`;
   }).join('')}</ol>`;
 }
 function publications(lang,file) {
@@ -117,7 +129,7 @@ function detail(p,lang,file) {
   }
   return `<article class="container paper-detail"><p class="breadcrumb"><a href="${home}#all">${zh(lang,'研究论文','Publications')}</a><span>/</span>${html(venue(p))}</p>
     <div class="detail-heading"><div class="paper-meta"><span class="venue">${html(venue(p))}</span><span class="role">${html(authorship(p,lang))}</span></div>
-    <h1 lang="en">${html(p.title)}</h1><p class="detail-authors">${authors(p)}</p><p class="detail-venue">${html(p.venue)}${p.status === 'accepted' ? ' · '+zh(lang,'已接收','Accepted'):''}</p>
+    <h1 lang="en">${html(p.title)}</h1><p class="detail-authors">${authors(p)}</p><p class="detail-venue">${html(p.venue)}${statusSuffix(p,lang)}</p>
     <div class="resource-links">${[...resources].map(([url,label],i)=>ext(url,label,i===0?'button primary':'button','link')).join('')}<a class="button" href="#citation">${icon('cite')}${zh(lang,'引用','Cite')}</a></div></div>
     <div class="detail-body"><section><h2>${zh(lang,'研究简介','Research overview')}</h2><p>${html(localized(p,lang,'abstract'))}</p></section>${figure(fig)}</div>
     ${fig.sourceFigure ? '<section class="framework"><h2>'+zh(lang,'方法框架','Method overview')+'</h2>'+figure(fig.sourceFigure)+'</section>' : ''}
@@ -147,11 +159,16 @@ await save('assets/js/site.js', await readFile(path.join(root,'assets/js/site.js
 for (const p of papers) {
   const article = p.venue.startsWith('IEEE Transactions') || p.shortVenue === 'EHRE';
   const volume = p.volume?.match(/^(\d+)(?:\((\d+)\))?$/);
+  const preprint = p.status === 'preprint';
+  const type = preprint ? 'misc' : article ? 'article' : 'inproceedings';
+  const publicationFields = preprint
+    ? {archivePrefix: 'arXiv', eprint: p.eprint, primaryClass: p.primaryClass}
+    : {[article ? 'journal' : 'booktitle']: p.venue};
   const fields = {title: '{' + p.title + '}', author: p.authors.split(', ').join(' and '),
-    [article ? 'journal' : 'booktitle']: p.venue, year: p.year,
+    ...publicationFields, year: p.year,
     volume: volume?.[1], number: volume?.[2], pages: p.pages?.replace(/[–—]/g,'--'), doi: p.doi, url: p.url};
   const lines = Object.entries(fields).filter(([,value])=> value).map(([key,value])=>'  '+key+' = {'+value+'}');
-  await save('papers/'+p.id+'/citation.bib','@'+(article ? 'article' : 'inproceedings')+'{'+p.id+p.year+',\n'+lines.join(',\n')+'\n}\n');
+  await save('papers/'+p.id+'/citation.bib','@'+type+'{'+p.id+p.year+',\n'+lines.join(',\n')+'\n}\n');
 }
 for (const lang of ['zh','en']) {
   const home=homePath(lang);

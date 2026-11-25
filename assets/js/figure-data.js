@@ -124,6 +124,11 @@ window.PAPER_FIGURES = {
     "captionZh": "群体跟踪概念图：多条轨迹表示不同目标，同色轨迹表示一组相关的运动模式。",
     "captionEn": "Concept illustration of individual trajectories grouped by shared patterns of motion."
   },
+  "part-motion-learning": {
+    "image": "assets/images/research/part-motion-learning.svg",
+    "captionZh": "概念图以抬手为例。三个全身骨架用同一颜色突出前臂，展示如何在整段动作中观察局部运动。",
+    "captionEn": "In this illustration of a hand raise, the highlighted forearm shows how a local movement unfolds across a sequence of whole-body poses."
+  },
   "behavioral-biomarkers": {
     "image": "assets/images/research/behavioral-biomarkers.svg",
     "captionZh": "行为分析概念图：将连续运动划分成动作片段，为观察行为模式提供时间信息。",
