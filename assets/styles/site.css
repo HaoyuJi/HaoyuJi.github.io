@@ -53,6 +53,18 @@ h1, h2, .paper-card h3, .paper-list h3 { font-family: var(--serif); }
 .hero-figure { width:100%; min-width:0; align-self:center; overflow:hidden; border:1px solid #cad8d7; border-radius:9px; background:#fff; }
 .hero-figure > img { width:100%; height:auto; }
 .pub-section,.record { padding-block: clamp(32px,3.3vw,48px); }
+.education { padding-block:clamp(26px,2.7vw,39px); border-bottom:1px solid var(--rule); }
+.edu-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(24px,4vw,56px); list-style:none; margin:0; padding:0; }
+.edu-list li { border-left:2px solid #abc6bd; padding-left:17px; }
+.edu-period { color:var(--teal); font-size:.84rem; font-weight:600; font-variant-numeric:tabular-nums; }
+.edu-list h3 { margin:4px 0; font:600 1.22rem/1.35 var(--serif); }
+.edu-program,.edu-honors { font-size:.94rem; line-height:1.6; }
+.edu-ranks { display:flex; flex-wrap:wrap; gap:6px 20px; margin:7px 0; }
+.edu-ranks div { display:flex; align-items:baseline; gap:6px; }
+.edu-ranks dt { color:var(--muted); font-size:.86rem; }
+.edu-ranks dd { margin:0; font-weight:650; color:var(--teal); font-variant-numeric:tabular-nums; }
+.edu-honors { color:var(--muted); }
+@media(max-width:680px) { .edu-list {grid-template-columns:1fr;gap:19px} }
 .section-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 21px; }
 h2 { font-size: clamp(1.85rem,2.45vw,2.45rem); font-weight: 630; letter-spacing: -.045em; line-height: 1.2; }
 .section-head h2 { display: flex; align-items: center; gap: 13px; }

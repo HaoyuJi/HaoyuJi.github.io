@@ -44,7 +44,7 @@ function ext(url, label, cls = '', symbol = '') {
 }
 function topbar(lang, file, twin, onHome) {
   const home = rel(file, homePath(lang));
-  const nav = [['about', '个人简介', 'Profile'], ['publications', '研究论文', 'Publications'], ['record', '学术履历', 'Academic record']];
+  const nav = [['about', '个人简介', 'Profile'], ['education', '教育经历', 'Education'], ['publications', '研究论文', 'Publications'], ['record', '学术履历', 'Academic record']];
   return `<header class="topbar"><div class="container nav-inner">
     <a class="brand" href="${home}"><img src="${rel(file, 'assets/images/monogram.svg')}" width="34" height="34" alt="">Haoyu Ji</a>
     <nav aria-label="${zh(lang,'主导航','Main navigation')}" id="main-nav">${nav.map(([id, cn, en]) => `<a href="${onHome ? '' : home}#${id}" ${onHome && id === 'about' ? 'aria-current="location"' : ''}>${zh(lang,cn,en)}</a>`).join('')}</nav>
@@ -69,6 +69,14 @@ function hero(lang, file) {
     </div></div>
     <figure class="hero-figure"><img src="${rel(file,interactionImage)}" width="1672" height="941" alt="${zh(lang,'研究者与儿童隔桌玩泡泡。上方的骨架序列呈现两人的姿态变化，下方的色带表示不同动作在时间上的起止。','A researcher and child play with bubbles. Skeletal poses above show their changing gestures, and colored bands below indicate when actions begin and end.')}"></figure>
     </div></section>`;
+}
+function education(lang) {
+  const entries = profile.education.map(item => {
+    const ranks = item.ranks.map(rank => `<div><dt>${html(rank.label[lang])}</dt><dd>${html(rank.value)}</dd></div>`).join('');
+    return `<li><p class="edu-period">${html(item.period[lang])}</p><h3>${html(item.school[lang])}</h3>
+      <p class="edu-program">${html(item.program[lang])}</p><dl class="edu-ranks">${ranks}</dl><p class="edu-honors">${html(item.honors[lang])}</p></li>`;
+  }).join('');
+  return `<section id="education" class="education"><div class="container"><div class="section-head"><h2>${zh(lang,'教育经历','Education')}</h2></div><ol class="edu-list">${entries}</ol></div></section>`;
 }
 function venue(p) {
   const short = p.shortVenue || p.venue;
@@ -172,7 +180,7 @@ for (const p of papers) {
 }
 for (const lang of ['zh','en']) {
   const home=homePath(lang);
-  await save(home, page(lang,home,hero(lang,home)+publications(lang,home)+record(lang)));
+  await save(home, page(lang,home,hero(lang,home)+education(lang)+publications(lang,home)+record(lang)));
   for(const p of papers) {
     const file = paperPath(lang,p.id);
     await save(file, page(lang,file,detail(p,lang,file),p));

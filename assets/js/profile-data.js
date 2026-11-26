@@ -166,6 +166,27 @@
     name: bilingual("吉昊宇", "Haoyu Ji"),
     role: bilingual("机械工程博士研究生", "PhD Student in Mechanical Engineering"),
     affiliation: bilingual("哈尔滨工业大学（深圳）", "Harbin Institute of Technology, Shenzhen"),
+    education: [
+      {
+        school: bilingual("哈尔滨工业大学（深圳）", "Harbin Institute of Technology, Shenzhen"),
+        period: bilingual("2022.09 – 至今", "Sep 2022 – present"),
+        program: bilingual("机械工程 · 硕博连读", "Mechanical Engineering · Integrated master’s and doctoral program"),
+        ranks: [
+          { label: bilingual("硕士排名", "Master’s rank"), value: "3/124" },
+          { label: bilingual("博士排名", "Doctoral rank"), value: "1/13" }
+        ],
+        honors: bilingual("入选 2025 年度中国科协青年科技人才培育工程博士生专项计划，获硕士研究生国家奖学金。",
+          "Selected for the China Association for Science and Technology’s 2025 doctoral training program for young researchers. Awarded the National Scholarship for master’s students.")
+      },
+      {
+        school: bilingual("中国海洋大学", "Ocean University of China"),
+        period: bilingual("2018.09 – 2022.06", "Sep 2018 – Jun 2022"),
+        program: bilingual("机械设计制造及其自动化 · 本科", "Mechanical Design, Manufacturing and Automation · Bachelor’s degree"),
+        ranks: [{ label: bilingual("本科排名", "Undergraduate rank"), value: "1/68" }],
+        honors: bilingual("获中国海洋大学荣誉学士、山东省优秀毕业生、优秀毕业论文，两次获国家奖学金。",
+          "Graduated with honors and was named an Outstanding Graduate of Shandong Province. Received an Outstanding Undergraduate Thesis award and two National Scholarships.")
+      }
+    ],
     bio: bilingual(
       "我师从刘洪海教授（欧洲科学院院士、IEEE Fellow），研究领域为计算机视觉、人体行为分析与时序动作分割。目前主要结合视觉信息、骨架运动与多模态信号，在连续序列中识别动作、定位各段动作的起止边界。我也关注视觉感知与行为理解中的其他问题，并将这些方法用于人机交互和孤独症儿童的行为评估。2025 年入选中国科协青年科技人才培育工程博士生专项计划。",
       "My doctoral advisor is Professor Honghai Liu, a member of Academia Europaea and an IEEE Fellow. My research spans computer vision, human behavior analysis and temporal action segmentation. I use visual information, skeletal motion and multimodal signals to recognize actions in continuous sequences and identify where each action begins and ends. I also study broader questions in visual perception and behavior understanding, with applications in human–computer interaction and behavioral assessment in children with autism. In 2025, I was selected for the China Association for Science and Technology’s doctoral training program for young researchers."
